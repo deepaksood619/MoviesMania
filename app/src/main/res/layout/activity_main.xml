@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="me.branded.deepaksood.moviesmania.MainActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+        <GridView
+            android:numColumns="2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/gridView"
+            android:horizontalSpacing="0dip"
+            android:verticalSpacing="0dip"/>
+    </FrameLayout>
+
+</RelativeLayout>
