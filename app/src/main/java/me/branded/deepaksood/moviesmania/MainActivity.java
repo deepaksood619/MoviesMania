@@ -54,12 +54,17 @@ public class MainActivity extends AppCompatActivity implements SortOrder.Selecti
     String mostPopularUrl;
     String highestRatingUrl;
 
+    Toolbar toolbar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);             //Toolbar is used to give more functionality then actionBar
+        //Toolbar is used
+        //Since it provides a lot of functionality over actionBar
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(0xFFFFFFFF);                              //Setting the title of the toolbar to White (0xFFFFFFFF)
 
@@ -114,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements SortOrder.Selecti
 
         //Adding more items to the list at the end of the grid View for future use (Tried but failed)
         mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
@@ -145,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements SortOrder.Selecti
                 .build();
         ImageLoader.getInstance().init(config);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
