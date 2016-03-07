@@ -19,11 +19,12 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp">
+            android:layout_height="@dimen/layout_height">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/title"
                 android:id="@+id/poster" />
 
             <ProgressBar
@@ -37,7 +38,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Release Date"
+            android:text="@string/title"
+            android:id="@+id/movie_title"
+            android:textColor="@color/textBlack"
+            android:textSize="@dimen/text_size"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/release_date"
             android:layout_gravity="center"
             android:id="@+id/release_date" />
 
@@ -48,17 +58,17 @@
             android:layout_gravity="center"
             android:numStars="5"
             android:stepSize=".25"
-            android:progressTint="@color/colorPrimaryDark"/>
+            android:progressTint="@color/colorPrimaryDark"
+            android:isIndicator="true"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Overview"
+            android:text="@string/overview"
             android:textColor="@color/textBlack"
             android:id="@+id/overview"
             android:layout_gravity="center_horizontal" />
-
 
     </LinearLayout>
 

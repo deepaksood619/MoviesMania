@@ -4,6 +4,8 @@ package me.branded.deepaksood.moviesmania;
  * Created by deepak on 15/2/16.
  */
 
+//class for storing images that comes in JsonObject
+
 public class GridItem {
 
         private String image;

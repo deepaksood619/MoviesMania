@@ -2,6 +2,8 @@ package me.branded.deepaksood.moviesmania;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -20,7 +24,7 @@ import java.util.ArrayList;
 public class GridViewAdapter extends ArrayAdapter<GridItem> {
     private Context mContext;
     private int layoutResourceId;
-    private ArrayList<GridItem> mGridData = new ArrayList<GridItem>();
+    private ArrayList<GridItem> mGridData = new ArrayList<>();
 
 
 
@@ -32,10 +36,6 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
     }
 
 
-    /**
-     * Updates grid data and refresh grid items.
-     * @param mGridData
-     */
     public void setGridData(ArrayList<GridItem> mGridData) {
         this.mGridData = mGridData;
         notifyDataSetChanged();
@@ -58,16 +58,42 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
 
         GridItem item = mGridData.get(position);
 
-        ProgressBar progressBar = null;
-        if(convertView != null) {
-            progressBar = (ProgressBar) convertView.findViewById(R.id.gridProgressBar);
-            progressBar.setVisibility(View.VISIBLE);
+        final ProgressBar progressBar;
+
+
+        progressBar = (ProgressBar) row.findViewById(R.id.gridProgressBar);
+
+        if(item != null && holder.imageView != null) {
+
+            ImageLoader.getInstance().displayImage(item.getImage(), holder.imageView, new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String imageUri, View view) {
+                    progressBar.setVisibility(view.VISIBLE);
+                }
+
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    progressBar.setVisibility(view.GONE);
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    progressBar.setVisibility(view.GONE);
+                }
+
+                @Override
+                public void onLoadingCancelled(String imageUri, View view) {
+                    progressBar.setVisibility(view.GONE);
+                }
+            });
+        }
+        else {
+            Log.v("TAG","cannot load image");
         }
 
 
-
-
-        if(item != null && holder != null) {
+        //If picasso is used then this will be used
+        /*if(item != null && holder != null) {
             Picasso.with(mContext).load(item.getImage()).into(holder.imageView,  new ImageLoadedCallback(progressBar) {
                 @Override
                 public void onSuccess() {
@@ -76,7 +102,7 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
                     }
                 }
             });
-        }
+        }*/
 
         return row;
     }
@@ -89,7 +115,7 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
     private class ImageLoadedCallback implements Callback {
         ProgressBar progressBar;
 
-        public  ImageLoadedCallback(ProgressBar progBar){
+        public  ImageLoadedCallback(ProgressBar progBar) {
             progressBar = progBar;
         }
 
